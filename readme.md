@@ -110,6 +110,10 @@ REST Interface to support multiple bussiness cases and handling edge cases assoc
     2  | Abhay      | Sharma    | 18  | M      |2020-07-30 12:00:00|9876543211
 ```
 
+## LINK TO IMPORTANT SCREENSHOTS
+
+[Click here!](https://github.com/prakharag98/Ticket_System/tree/master/Screen%20Shots)
+
 ## Author
 
 👤 **Prakhar Agarwal**
