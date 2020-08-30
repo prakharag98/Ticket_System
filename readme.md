@@ -117,5 +117,6 @@ REST Interface to support multiple bussiness cases and handling edge cases assoc
 ## Author
 
 👤 **Prakhar Agarwal**
+- Codeforces [@prakharag](https://codeforces.com/profile/prakharag)
 - Github: [@prakharag98](https://github.com/prakharag98)
 
