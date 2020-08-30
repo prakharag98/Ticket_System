@@ -12,32 +12,44 @@ $app->post('/api/customers_ticket/add', function(Request $request, Response $res
     $gender = $request->getParam('gender');
     $booking_time = $request->getParam('booking_time');
     $phone_no = $request->getParam('phone_no');
-
+    $flag=1;
     $sql = "INSERT INTO customers_ticket (first_name,last_name,age,gender,booking_time,phone_no) VALUES
     (:first_name,:last_name,:age,:gender,:booking_time,:phone_no)";
 
-    try{
-        // Get DB Object
-        $db = new db();
-        // Connect
-        $db = $db->connect();
-
-        $stmt = $db->prepare($sql);
-
-        $stmt->bindParam(':first_name', $first_name);
-        $stmt->bindParam(':last_name',  $last_name);
-        $stmt->bindParam(':age',        $age);
-        $stmt->bindParam(':gender',     $gender);
-        $stmt->bindParam(':booking_time',       $booking_time);
-        $stmt->bindParam(':phone_no',   $phone_no);
-
-        $stmt->execute();
-
-        echo '{"notice": {"text": "Customer Ticket Booked"}';
-
-    } catch(PDOException $e){
-        echo '{"error": {"text": '.$e->getMessage().'}';
+    $db1 = new db();
+    $db1 = $db1->connect();
+    $query = $db1->prepare("SELECT * FROM `customers_ticket` WHERE `booking_time`=:booking_time");
+    $query->bindParam(":booking_time", $booking_time);
+    $query->execute();
+    $count_tickets=$query->rowcount();
+    if($count_tickets>20){ 
+        echo '{"notice": {"text": "Housefull"}';
+        $flag=0;
     }
+    else{
+        try{
+            // Get DB Object
+            $db = new db();
+            // Connect
+            $db = $db->connect();
+    
+            $stmt = $db->prepare($sql);
+    
+            $stmt->bindParam(':first_name', $first_name);
+            $stmt->bindParam(':last_name',  $last_name);
+            $stmt->bindParam(':age',        $age);
+            $stmt->bindParam(':gender',     $gender);
+            $stmt->bindParam(':booking_time',       $booking_time);
+            $stmt->bindParam(':phone_no',   $phone_no);
+    
+            $stmt->execute();
+    
+            echo '{"notice": {"text": "Customer Ticket Booked"}';
+            
+        } catch(PDOException $e1){
+            echo '{"error": {"text": '.$e1->getMessage().'}';
+        }
+    }    
 });
 
 //Get details of single user
